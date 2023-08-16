@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use Http\Controllers\FuncionarioController;
+use App\Http\Controllers\FuncionarioController;
 
 /*
 |--------------------------------------------------------------------------

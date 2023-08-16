@@ -3,7 +3,7 @@
 @section('title', 'SisRH - Funcionários')
 @section('content')
     <x-btn-create>
-      <x-slot name="route">novo</x-slot>
+      <x-slot name="route">{{route('funcionarios.create')}}</x-slot>
       <x-slot name="title">Cadastrar Funcionários</x-slot>
     </x-btn-create>
     <h1 class="fs-2 mb-3">Funcionários</h1>

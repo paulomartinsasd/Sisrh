@@ -11,7 +11,8 @@ class FuncionarioController extends Controller
      */
     public function index()
     {
-        //
+        //Recebe os dados do banco
+        return view('funcionarios.index');
     }
 
     /**
@@ -19,7 +20,8 @@ class FuncionarioController extends Controller
      */
     public function create()
     {
-        //
+        // Retorna o formulario de cadastro do funcionário
+        return view('funcionarios.create');
     }
 
     /**
