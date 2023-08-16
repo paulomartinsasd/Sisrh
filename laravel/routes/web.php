@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use Http\Controllers\FuncionarioController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,10 +19,5 @@ Route::get('/', function () {
     return view('login');
 });
 
-Route::get('/funcionarios', function () {
-    return view('funcionarios.index');
-});
-
-Route::get('/funcionarios/novo', function () {
-    return view('funcionarios.create');
-});
+Route::get('/funcionarios', [FuncionarioController::class, 'index'])->name('funcionarios.index');
+Route::get('/funcionarios/create', [FuncionarioController::class, 'index'])->name('funcionarios.create');
