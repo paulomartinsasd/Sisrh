@@ -66,7 +66,7 @@
   </div>
   <div class="col-12">
     <button type="submit" class="btn btn-primary">Cadastrar</button>
-    <a href="" class="btn btn-danger">Cancelar</a>
+    <a href="{{route('funcionarios.index')}}" class="btn btn-danger">Cancelar</a>
   </div>
 </form>
 @endsection

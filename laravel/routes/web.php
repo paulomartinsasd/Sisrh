@@ -20,4 +20,4 @@ Route::get('/', function () {
 });
 
 Route::get('/funcionarios', [FuncionarioController::class, 'index'])->name('funcionarios.index');
-Route::get('/funcionarios/create', [FuncionarioController::class, 'index'])->name('funcionarios.create');
+Route::get('/funcionarios/create', [FuncionarioController::class, 'create'])->name('funcionarios.create');
