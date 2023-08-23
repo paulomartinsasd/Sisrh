@@ -6,30 +6,45 @@
       <x-slot name="route">{{route('funcionarios.create')}}</x-slot>
       <x-slot name="title">Cadastrar Funcionários</x-slot>
     </x-btn-create>
+
     <h1 class="fs-2 mb-3">Funcionários</h1>
+
+    @if(Session::get('sucesso'))
+        <div class="alert alert-success text-center">{{ Session::get('sucesso') }}</div>
+    @endif
+
     <table class="table table-striped">
-  <thead class="table-dark">
-    <tr class="text-center">
-      <th scope="col">ID</th>
-      <th scope="col">Foto</th>
-      <th scope="col">Nome</th>
-      <th scope="col">Cargo</th>
-      <th scope="col">Departamentos</th>
-      <th scope="col" width="110px">Ações</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Foto</td>
-      <td>Edemilton</td>
-      <td>Professor</td>
-      <td>Sistema de informações</td>
-      <td>
-        <a href="" title="Editar" class="btn btn-primary"><i class="bi bi-pen"></i></a>
-        <a href="" title="Deletar" class="btn btn-danger"><i class="bi bi-trash"></i></a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+        <thead class="table-dark">
+            <tr class="text-center">
+            <th scope="col">ID</th>
+            <th scope="col">Foto</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Cargo</th>
+            <th scope="col">Departamentos</th>
+            <th scope="col" width="110px">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($funcionarios as $funcionario)
+                <tr class="alight-middle">
+                    <th scope="row">{{ $funcionario->id }}</th>
+                    <td class="text-center">
+                        @if (empty($funcionario->foto))
+                            <img src="/images/sombra_funcionario.jpg" alt="Foto" class="img-thumbnail" style="width: 70px">
+                        @else
+                            <img src="" alt="Fotos">
+                        @endif
+                    </td>
+                    <td>{{ $funcionario->nome}}</td>
+                    <td class="text-center">{{ $funcionario->cargo->descricao }}</td>
+                    <td class="text-center">{{ $funcionario->departamento->nome }}</td>
+                    <td>
+                        <a href="" title="Editar" class="btn btn-primary"><i class="bi bi-pen"></i></a>
+                        <a href="" title="Deletar" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                    </td>
+                </tr>
+            @endforeach
+
+        </tbody>
+    </table>
 @endsection

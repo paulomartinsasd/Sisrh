@@ -4,7 +4,7 @@
     </div>
     <div class="col-md-6">
         <label for="datat_nasc" class="form-label">Data de Nascimento</label>
-        <input type="date" class="form-control" id="datat_nasc" name="datat_nasc" required>
+        <input type="date" class="form-control" id="data_nasc" name="data_nasc" required>
     </div>
     <div class="col-md-4">
         <label for="sexo" class="form-label">Sexo</label>

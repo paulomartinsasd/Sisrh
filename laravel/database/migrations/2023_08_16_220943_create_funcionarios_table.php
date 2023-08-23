@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nome');
             $table->date('data_nasc');
             $table->enum('sexo', ['m','f']);
-            $table->date('email')->unique();
+            $table->string('email', 100)->unique();
             $table->string('telefone', 15);
             $table->char('cpf', 11)->unique();
             $table->string('foto')->nullable();
