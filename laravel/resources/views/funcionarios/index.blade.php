@@ -29,17 +29,17 @@
                 <tr class="alight-middle">
                     <th scope="row">{{ $funcionario->id }}</th>
                     <td class="text-center">
-                        @if (empty($funcionario->foto))
+                        @if (@empty($funcionario->foto))
                             <img src="/images/sombra_funcionario.jpg" alt="Foto" class="img-thumbnail" style="width: 70px">
                         @else
-                            <img src="" alt="Fotos">
+                            <img src="{{ url("storage/funcionarios/$funcionario->foto") }}" alt="Fotos" style="width: 70px">
                         @endif
                     </td>
                     <td>{{ $funcionario->nome}}</td>
                     <td class="text-center">{{ $funcionario->cargo->descricao }}</td>
                     <td class="text-center">{{ $funcionario->departamento->nome }}</td>
                     <td>
-                        <a href="" title="Editar" class="btn btn-primary"><i class="bi bi-pen"></i></a>
+                        <a href="{{ route('funcionarios.edit',$funcionario->id) }}" title="Editar" class="btn btn-primary"><i class="bi bi-pen"></i></a>
                         <a href="" title="Deletar" class="btn btn-danger"><i class="bi bi-trash"></i></a>
                     </td>
                 </tr>
