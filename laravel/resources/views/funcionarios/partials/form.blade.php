@@ -10,9 +10,9 @@
         <label for="sexo" class="form-label">Sexo</label>
         <select id="sexo" name="sexo" class="form-select" required>
             <option value=""></option>>
-            <option value="m" @if(@isset($funcionario->sexo)) @selected($funcionario->sexo == 'm')>Masculino</option>>
-            <option value="f" @if(@isset($funcionario->sexo)) @selected($funcionario->sexo == 'f')>Feminino</option>>
-            <option value="o">Outros</option>>
+            <option value="m" @if(@isset($funcionario->sexo)) @selected($funcionario->sexo == "m")@else @endif("")>Masculino</option>>
+            <option value="f" @if(@isset($funcionario->sexo)) @selected($funcionario->sexo == "f")@else @endif("")>Feminino</option>>
+            <option value="o" @if(@isset($funcionario->sexo)) @selected($funcionario->sexo == "o")@else @endif("")>Outros</option>>
         </select>
     </div>
     <div class="col-4">
