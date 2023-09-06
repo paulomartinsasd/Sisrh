@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cargo;
 use Illuminate\Http\Request;
 
 class CargoController extends Controller
@@ -11,7 +12,10 @@ class CargoController extends Controller
      */
     public function index()
     {
-        //
+        $cargos = Cargo::all()->sortBy('id');
+
+        //Recebe os dados do banco
+        return view('cargos.index', compact('cargos'));
     }
 
     /**
@@ -19,7 +23,7 @@ class CargoController extends Controller
      */
     public function create()
     {
-        //
+        return view('cargos.create');
     }
 
     /**
@@ -27,7 +31,16 @@ class CargoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->toArray();
+        dd($input);
+
+        $input['user_id'] = 1;
+
+
+        // Insert de dados no Banco
+        Cargo::create($input);
+
+        return redirect()->route('cargos.index')->with('sucesso', 'Cargo Cadastrado com Sucesso!');
     }
 
     /**
@@ -43,7 +56,12 @@ class CargoController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $cargo = Cargo::find($id);
+        if(!$cargo){
+            return back();
+        }
+
+        return view('cargos.edit', compact('cargo'));
     }
 
     /**
@@ -51,7 +69,13 @@ class CargoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $input = $request->toArray();
+
+        $cargo = Cargo::find($id);
+
+        $cargo->fill($input);
+        $cargo->save();
+        return redirect()->route('cargos.index')->with('sucesso', 'Cargo Alterado com Sucesso!');
     }
 
     /**

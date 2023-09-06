@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Cargo extends Model
 {
     use HasFactory;
+    protected $fillable = ['descricao'];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

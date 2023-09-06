@@ -1,3 +1,3 @@
-<a href="{{route('funcionarios.create')}}" class="btn btn-primary rounded-circle float-end mb-3" title="{{ $title}}">
+<a href="{{ route("$rota") }}" class="btn btn-primary rounded-circle float-end mb-3" title="{{ $title }}">
     <i class="bi bi-plus fs-4"></i>
 </a>

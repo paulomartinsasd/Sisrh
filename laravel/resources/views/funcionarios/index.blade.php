@@ -3,7 +3,7 @@
 @section('title', 'SisRH - Funcionários')
 @section('content')
     <x-btn-create>
-      <x-slot name="route">{{route('funcionarios.create')}}</x-slot>
+      <x-slot name="rota">{{route('funcionarios.create')}}</x-slot>
       <x-slot name="title">Cadastrar Funcionários</x-slot>
     </x-btn-create>
 
@@ -40,7 +40,14 @@
                     <td class="text-center">{{ $funcionario->departamento->nome }}</td>
                     <td>
                         <a href="{{ route('funcionarios.edit',$funcionario->id) }}" title="Editar" class="btn btn-primary"><i class="bi bi-pen"></i></a>
-                        <a href="" title="Deletar" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                        <a href="" title="Deletar" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-{{ $funcionario->id }}"><i class="bi bi-trash" ></i></a>
+                        {{-- Inserir o Componente modal na view --}}
+                        <x-modal-delete>
+                            <x-slot name="id">{{ $funcionario->id }}</x-slot>
+                            <x-slot name="tipo">funcionário</x-slot>
+                            <x-slot name="nome">{{ $funcionario->nome }}</x-slot>
+                            <x-slot name="rota">funcionarios.destroy</x-slot>
+                        </x-modal-delete>
                     </td>
                 </tr>
             @endforeach

@@ -110,7 +110,7 @@ class FuncionarioController extends Controller
 
         $funcionario->fill($input);
         $funcionario->save();
-        return redirect()->route('funcionario.index')->with('sucesso', 'Funcionário Alterado com Sucesso!');
+        return redirect()->route('funcionarios.index')->with('sucesso', 'Funcionário Alterado com Sucesso!');
     }
 
     /**
@@ -118,6 +118,15 @@ class FuncionarioController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $funcionario = Funcionario::find($id);
+        /* Se o funcionário tiver foto ela vai ser deletada */
+        if($funcionario['foto'] != null){
+            Storage::delete('public/funcionarios/'.$funcionario['foto']);
+        }
+
+        //Apagando o regristo do Banco de dados
+        $funcionario->delete();
+
+        return redirect()->route('funcionarios.index')->with('sucesso', 'Funcionário excluido com Sucesso.');
     }
 }
