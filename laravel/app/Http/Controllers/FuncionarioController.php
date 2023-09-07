@@ -28,7 +28,7 @@ class FuncionarioController extends Controller
      */
     public function create()
     {
-        // Retorna o formulario de cadastro do funcionário
+        // Retorna o formulário de cadastro do funcionário
         $departamentos = Departamento::all()->sortBy('nome');
         $cargos = Cargo::all()->sortBy('descricao');
         return view('funcionarios.create', compact('departamentos', 'cargos'));
@@ -54,17 +54,17 @@ class FuncionarioController extends Controller
         return redirect()->route('funcionarios.index')->with('sucesso', 'Funcionário Cadastrado com Sucesso!');
     }
 
-    // Função para redimencionar e realizar o upload da foto
+    // Função para redimensionar e realizar o upload da foto
     private function uploadFoto($foto){
         $nomeArquivo = $foto->hashName();
 
-        //Redimencionar a foto
+        //Redimensionar a foto
         $imagem = image::make($foto)->fit(200,200);
 
         //Salvar Arquivo da Foto
         Storage::put('public/funcionarios/'.$nomeArquivo, $imagem->encode());
 
-        //Upload Sem Redimencionar
+        //Upload Sem Redimensionar
         //$foto->store('public/funcionarios/');
 
         return $nomeArquivo;

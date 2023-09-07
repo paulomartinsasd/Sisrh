@@ -3,7 +3,7 @@
 @section('title', 'SisRH - Funcionários')
 @section('content')
     <x-btn-create>
-      <x-slot name="rota">{{route('funcionarios.create')}}</x-slot>
+      <x-slot name="rota">funcionarios.create</x-slot>
       <x-slot name="title">Cadastrar Funcionários</x-slot>
     </x-btn-create>
 
@@ -21,7 +21,7 @@
             <th scope="col">Nome</th>
             <th scope="col">Cargo</th>
             <th scope="col">Departamentos</th>
-            <th scope="col" width="110px">Ações</th>
+            <th scope="col" style="width: 110px;">Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -48,7 +48,7 @@
                             <x-slot name="nome">{{ $funcionario->nome }}</x-slot>
                             <x-slot name="rota">funcionarios.destroy</x-slot>
                         </x-modal-delete>
-                    </td>
+                    </td>s
                 </tr>
             @endforeach
 

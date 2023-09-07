@@ -3,7 +3,7 @@
 @section('title', 'SisRH - Cargos')
 @section('content')
     <x-btn-create>
-      <x-slot name="rota">{{ route('cargos.create') }}</x-slot>
+      <x-slot name="rota">cargos.create</x-slot>
       <x-slot name="title">Cargos</x-slot>
     </x-btn-create>
 
@@ -18,7 +18,7 @@
             <tr class="text-center">
             <th scope="col">ID</th>
             <th scope="col">Nome</th>
-            <th scope="col" width="110px">Ações</th>
+            <th scope="col" style="width: 110px;">Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -28,7 +28,13 @@
                     <td class="text-center">{{ $cargo->descricao }}</td>
                     <td>
                         <a href="{{ route('cargos.edit',$cargo->id) }}" title="Editar" class="btn btn-primary"><i class="bi bi-pen"></i></a>
-                        <a href="" title="Deletar" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                        <a href="" title="Deletar" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-{{ $cargo->id }}"><i class="bi bi-trash"></i></a>
+                        <x-modal-delete>
+                            <x-slot name="id">{{ $cargo->id }}</x-slot>
+                            <x-slot name="tipo">Cargo</x-slot>
+                            <x-slot name="nome">{{ $cargo->descricao }}</x-slot>
+                            <x-slot name="rota">cargos.destroy</x-slot>
+                        </x-modal-delete>
                     </td>
                 </tr>
             @endforeach

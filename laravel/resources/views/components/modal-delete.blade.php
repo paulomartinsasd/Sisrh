@@ -7,7 +7,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p>Deseja Realmente excluir o {{ $tipo }}</p>
+          <p>Deseja Realmente excluir o {{ $tipo }}?</p>
           <p><strong>{{ $nome }}</strong></p>
         </div>
         <div class="modal-footer">

@@ -32,7 +32,6 @@ class CargoController extends Controller
     public function store(Request $request)
     {
         $input = $request->toArray();
-        dd($input);
 
         $input['user_id'] = 1;
 
@@ -83,6 +82,11 @@ class CargoController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $cargo = Cargo::find($id);
+
+        //Apagando o regristo do Banco de dados
+        $cargo->delete();
+
+        return redirect()->route('cargos.index')->with('sucesso', 'Cargo excluido com Sucesso.');
     }
 }
