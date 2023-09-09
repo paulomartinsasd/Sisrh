@@ -40,7 +40,7 @@
                             <x-slot name="nome">{{ $user->name }}</x-slot>
                             <x-slot name="rota">users.destroy</x-slot>
                         </x-modal-delete>
-                    </td>s
+                    </td>
                 </tr>
             @endforeach
 

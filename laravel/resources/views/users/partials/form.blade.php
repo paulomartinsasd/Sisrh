@@ -8,7 +8,7 @@
     </div>
     <div class="col-md-6">
         <label for="email_verified_at" class="form-label">Confirmar E-mail</label>
-        <input type="email" class="form-control" id="email_verified_at" name="email_verified_at" value="{{ $user->email_verified_at ?? "" }}" required>
+        <input type="email" class="form-control" id="email_verified_at" value="{{ $user->email_verified_at ?? "" }}" required>
     </div>
     <div class="col-4">
         <label for="password" class="form-label">Senha</label>

@@ -48,7 +48,7 @@
                             <x-slot name="nome">{{ $funcionario->nome }}</x-slot>
                             <x-slot name="rota">funcionarios.destroy</x-slot>
                         </x-modal-delete>
-                    </td>s
+                    </td>
                 </tr>
             @endforeach
 

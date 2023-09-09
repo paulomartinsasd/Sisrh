@@ -61,9 +61,12 @@ class UserController extends Controller
      */
     public function edit(string $id, Request $request): View|Application|Factory|RedirectResponse
     {
-        $input = $request->toArray();
+//        $input = $request->toArray();
 
         $user = User::find($id);
+
+        $input = $user;
+
         if(!$user){
             return back();
         }
