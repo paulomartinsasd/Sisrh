@@ -30,9 +30,9 @@
                     <th scope="row">{{ $funcionario->id }}</th>
                     <td class="text-center">
                         @if (@empty($funcionario->foto))
-                            <img src="/images/sombra_funcionario.jpg" alt="Foto" class="img-thumbnail" style="width: 70px">
+                            <img src="{{asset('/images/sombra_funcionario.jpg')}}" alt="Foto" class="img-thumbnail" style="width: 70px">
                         @else
-                            <img src="{{ url("storage/funcionarios/$funcionario->foto") }}" alt="Fotos" style="width: 70px">
+                            <img src="{{ asset("storage/funcionarios/$funcionario->foto") }}" alt="Fotos" style="width: 70px">
                         @endif
                     </td>
                     <td>{{ $funcionario->nome}}</td>

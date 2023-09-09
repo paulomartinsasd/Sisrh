@@ -3,7 +3,7 @@
         <input type="text" class="form-control" id="nome" name="nome" value="{{ $funcionario->nome ?? "" }}" required>
     </div>
     <div class="col-md-6">
-        <label for="datat_nasc" class="form-label">Data de Nascimento</label>
+        <label for="data_nasc" class="form-label">Data de Nascimento</label>
         <input type="date" class="form-control" id="data_nasc" name="data_nasc" value="{{ $funcionario->data_nasc ?? "" }}" required>
     </div>
     <div class="col-md-4">
