@@ -71,13 +71,6 @@ class UserController extends Controller
             return back();
         }
 
-        if($input['password'] != null){
-            $input['password'] = bcrypt($input['password']);
-        }else{
-            $input['password'] = $user['password'];
-        }
-
-
         return view('users.edit', compact('user'));
     }
 
@@ -89,6 +82,12 @@ class UserController extends Controller
         $input = $request->toArray();
 
         $user = User::find($id);
+
+        if($input['password'] != null){
+            $input['password'] = bcrypt($input['password']);
+        }else{
+            $input['password'] = $user['password'];
+        }
 
         $user->fill($input);
         $user->save();
