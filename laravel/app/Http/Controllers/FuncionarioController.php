@@ -17,7 +17,7 @@ class FuncionarioController extends Controller
      */
     public function index()
     {
-        $funcionarios = Funcionario::all()->sortBy('nome');
+        $funcionarios = Funcionario::paginate(3);
 
         //Recebe os dados do banco
         return view('funcionarios.index', compact('funcionarios'));

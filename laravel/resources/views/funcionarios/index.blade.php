@@ -13,6 +13,13 @@
         <div class="alert alert-success text-center">{{ Session::get('sucesso') }}</div>
     @endif
 
+    <form action="{{ route('funcionarios.index') }}" method="get">
+        <div>
+            <input type="text" name="buscaFuncionario" placeholder="Nome do Funcionário" />
+            <button type="submit">Procurar</button>
+        </div>
+    </form>
+
     <table class="table table-striped">
         <thead class="table-dark">
             <tr class="text-center">
@@ -54,4 +61,10 @@
 
         </tbody>
     </table>
+    <style>
+        .pagination{
+            justify-content: right;
+        }
+    </style>
+    {{ $funcionarios->links() }}
 @endsection
