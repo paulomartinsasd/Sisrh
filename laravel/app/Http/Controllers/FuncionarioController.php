@@ -15,9 +15,9 @@ class FuncionarioController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $funcionarios = Funcionario::paginate(3);
+        $funcionarios = Funcionario::where('nome','like','%'.$request->busca. '%')->orderBy('nome', 'asc')->paginate(3);
 
         //Recebe os dados do banco
         return view('funcionarios.index', compact('funcionarios'));

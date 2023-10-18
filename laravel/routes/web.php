@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\CargoController;
 use App\Http\Controllers\DepartamentoController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -18,9 +19,10 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('login');
-});
+/* Rotas de login */
+Route::get('/', [LoginController::class, 'index'])->name('users.index');
+Route::post('/auth', [LoginController::class, 'auth'])->name('users.auth');
+Route::get('/logout', [LoginController::class, 'logout'])->name('users.logout');
 
 /* Rotas de Funcionários */
 Route::get('/funcionarios', [FuncionarioController::class, 'index'])->name('funcionarios.index');

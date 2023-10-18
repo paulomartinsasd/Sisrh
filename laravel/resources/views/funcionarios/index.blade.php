@@ -13,12 +13,10 @@
         <div class="alert alert-success text-center">{{ Session::get('sucesso') }}</div>
     @endif
 
-    <form action="{{ route('funcionarios.index') }}" method="get">
-        <div>
-            <input type="text" name="buscaFuncionario" placeholder="Nome do Funcionário" />
-            <button type="submit">Procurar</button>
-        </div>
-    </form>
+    <x-busca>
+        <x-slot name="rota">funcionarios.index</x-slot>
+        <x-slot name="tipo">Funcionário</x-slot>
+    </x-busca>
 
     <table class="table table-striped">
         <thead class="table-dark">
