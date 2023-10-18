@@ -20,9 +20,9 @@ use App\Http\Controllers\UserController;
 */
 
 /* Rotas de login */
-Route::get('/', [LoginController::class, 'index'])->name('users.index');
-Route::post('/auth', [LoginController::class, 'auth'])->name('users.auth');
-Route::get('/logout', [LoginController::class, 'logout'])->name('users.logout');
+Route::get('/', [LoginController::class, 'index'])->name('login.index');
+Route::post('/auth', [LoginController::class, 'auth'])->name('login.auth');
+Route::get('/logout', [LoginController::class, 'logout'])->name('login.logout');
 
 /* Rotas de Funcionários */
 Route::get('/funcionarios', [FuncionarioController::class, 'index'])->name('funcionarios.index');

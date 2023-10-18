@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -19,7 +20,12 @@ class LoginController extends Controller
             'email.email' => 'O E-amil informado não é válido',
             'password.required' => 'O campo senha é Obrigatório'
         ]);
-    }
 
-    public function logout(){}
+        if(Auth::attempt($credenciais)){
+            $request->session()->regenerate();
+            return redirect()->route('funcionarios.index');
+        } else {
+            return redirect()->back()->with('erro_login', 'E-mail ou Senha Inválido');
+        }
+    }
 }
