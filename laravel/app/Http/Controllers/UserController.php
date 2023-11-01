@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -17,7 +18,10 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::where('name', 'like','%'.$request->busca.'%')->orderBy('name', 'asc')->paginate(10);
+        /* Verifica se o usuário é admin através do GATE */
+        if(Gate::allows('type-user')){
+            $users = User::where('name', 'like','%'.$request->busca.'%')->orderBy('name', 'asc')->paginate(10);
+        }
 
         $totalUsers = User::all()->count();
 
