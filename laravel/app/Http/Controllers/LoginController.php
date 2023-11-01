@@ -7,25 +7,37 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('login.index');
     }
 
-    public function auth(Request $request){
-        $credenciais = $request->validate([
-            'email' => ['requered', 'email'],
-            'password' => ['requered']
-        ],[
-            'email.required' => "O campo e-mail é Obrigatorio",
-            'email.email' => 'O E-amil informado não é válido',
-            'password.required' => 'O campo senha é Obrigatório'
+    public function auth(Request $request)
+    {
+        $credencias = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required']
+        ],
+        [
+            'email.required' => 'O campo e-mail é obrigatório',
+            'email.email' => 'O e-mail informado não é válido',
+            'password.required' => 'O campo senha é obrigatório'
         ]);
 
-        if(Auth::attempt($credenciais)){
+        if(Auth::attempt($credencias)){
             $request->session()->regenerate();
             return redirect()->route('funcionarios.index');
         } else {
-            return redirect()->back()->with('erro_login', 'E-mail ou Senha Inválido');
+            return redirect()->back()->with('erro_login', 'E-mail ou senha inválida');
         }
+
+    }
+
+    // Função para deslogar o usuário logado
+    public function logout(Request $request){
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('login.index');
     }
 }

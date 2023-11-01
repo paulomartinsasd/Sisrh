@@ -7,15 +7,23 @@ use Illuminate\Http\Request;
 
 class DepartamentoController extends Controller
 {
+
+    /* Verificar se o Usuário está logado no sistema */
+    public function __construct(){
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $departamentos = Departamento::all()->sortBy('id');
+        $departamentos = Departamento::where('nome', 'like','%'.$request->busca.'%')->orderBy('nome', 'asc')->paginate(10);
 
-        //Recebe os dados do banco
-        return view('departamentos.index', compact('departamentos'));
+        $totalDepartamentos = Departamento::all()->count();
+
+        // Receber os dados do banco através
+        return view('departamentos.index', compact('departamentos', 'totalDepartamentos'));
     }
 
     /**
@@ -33,13 +41,10 @@ class DepartamentoController extends Controller
     {
         $input = $request->toArray();
 
-        $input['user_id'] = 1;
-
-
-        // Insert de dados no Banco
+        // Insert de dados do usuário no banco
         Departamento::create($input);
 
-        return redirect()->route('departamentos.index')->with('sucesso', 'Departamento Cadastrado com Sucesso!');
+        return redirect()->route('departamentos.index')->with('sucesso','Departamento cadastrado com sucesso');
     }
 
     /**

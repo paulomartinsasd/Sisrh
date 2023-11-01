@@ -4,48 +4,44 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Contracts\View\View;
-use Illuminate\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\RedirectResponse;
 
 class UserController extends Controller
 {
+    /* Verificar se o Usuário está logado no sistema */
+    public function __construct(){
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index(): View|Application|Factory
+    public function index(Request $request)
     {
-        $users = User::all()->sortBy('name');
+        $users = User::where('name', 'like','%'.$request->busca.'%')->orderBy('name', 'asc')->paginate(10);
 
-        //Recebe os dados do banco
-        return view('users.index', compact('users'));
+        $totalUsers = User::all()->count();
+
+        // Receber os dados do banco através
+        return view('users.index', compact('users', 'totalUsers'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    public function create()
     {
-        // Retorna o formulário de cadastro do funcionário
         return view('users.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
-        $input = $request->toArray();
-        $input['password'] = bcrypt($input['password']); /* Linha que criptografa a senha do usuário com o método bcrypt, antes de guardar no banco */
-        //dd($input);
-
-        $input['user_id'] = 1;
-
-        // Insert de dados no Banco
+        $input = $request->all();
         User::create($input);
 
-        return redirect()->route('users.index')->with('sucesso', 'Usuário Cadastrado com Sucesso!');
+        return redirect()->route('users.index')->with('sucesso','Usuário cadastrado com sucesso');
     }
 
     /**
@@ -59,13 +55,9 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id, Request $request): View|Application|Factory|RedirectResponse
+    public function edit(string $id)
     {
-//        $input = $request->toArray();
-
         $user = User::find($id);
-
-        $input = $user;
 
         if(!$user){
             return back();
@@ -79,31 +71,26 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $input = $request->toArray();
+        $input = $request->all();
 
         $user = User::find($id);
 
-        if($input['password'] != null){
+        if($request->password){
             $input['password'] = bcrypt($input['password']);
-        }else{
+        } else {
             $input['password'] = $user['password'];
         }
 
         $user->fill($input);
         $user->save();
-        return redirect()->route('users.index')->with('sucesso', 'Usuário Alterado com Sucesso!');
+        return redirect()->route('users.index')->with('sucesso','Usuário alterado com sucesso!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id): RedirectResponse
+    public function destroy(string $id)
     {
-        $user = User::find($id);
-
-        //Apagando o registro do Banco de dados
-        $user->delete();
-
-        return redirect()->route('users.index')->with('sucesso', 'Usuário excluído com Sucesso.');
+        //
     }
 }

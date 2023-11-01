@@ -12,6 +12,11 @@ use PhpParser\Node\Stmt\Return_;
 
 class FuncionarioController extends Controller
 {
+    /* Verificar se o Usuário está logado no sistema */
+    public function __construct(){
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -19,8 +24,10 @@ class FuncionarioController extends Controller
     {
         $funcionarios = Funcionario::where('nome','like','%'.$request->busca. '%')->orderBy('nome', 'asc')->paginate(3);
 
+        $totalFuncionarios = Funcionario::all()->count();
+
         //Recebe os dados do banco
-        return view('funcionarios.index', compact('funcionarios'));
+        return view('funcionarios.index', compact('funcionarios', 'totalFuncionarios'));
     }
 
     /**
