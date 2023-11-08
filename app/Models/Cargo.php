@@ -10,7 +10,8 @@ class Cargo extends Model
     use HasFactory;
     protected $fillable = ['descricao'];
 
-    public function user(){
-        return $this->belongsTo(User::class);
+    //Relação entre tabelas (Relação N:1)
+    public function funionariosAtivos(){
+        return $this->hasMany(Funcionario::class)->where('status','=','on');
     }
 }

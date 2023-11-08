@@ -24,6 +24,7 @@
             <tr class="text-center">
             <th scope="col">ID</th>
             <th scope="col">Nome</th>
+            <th scope="col">Total de Funcionários</th>
             <th scope="col" style="width: 110px;">Ações</th>
             </tr>
         </thead>
@@ -32,6 +33,7 @@
                 <tr class="alight-middle">
                     <th scope="row" class="text-center">{{ $departamento->id }}</th>
                     <td class="text-center">{{ $departamento->nome }}</td>
+                    <td class="text-center">{{ $departamento->funionariosAtivos->count(); }}</td>
                     <td>
                         <a href="{{ route('departamentos.edit',$departamento->id) }}" title="Editar" class="btn btn-primary"><i class="bi bi-pen"></i></a>
                         <a href="" title="Deletar" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-{{ $departamento->id }}"><i class="bi bi-trash"></i></a>

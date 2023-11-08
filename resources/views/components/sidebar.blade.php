@@ -24,11 +24,14 @@
                 <i class="bi bi-house-check mx-2 fs-5 align-middle"></i>Departamentos
             </a>
         </li>
+        @can('tipo-user')
         <li class="nav-item">
             <a href="{{  route('users.index') }}" class="nav-link text-white btn btn-primary text-start">
                 <i class="bi bi-people mx-2 fs-5 align-middle"></i>Usuários
             </a>
         </li>
+        @endcan
+
         <li class="nav-item">
             <a href="#" class="nav-link text-white btn btn-primary text-start">
                 <i class="bi bi-star mx-2 fs-5 align-middle"></i>Benefícios
