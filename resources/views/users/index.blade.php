@@ -14,8 +14,8 @@
     @endif
 
     <x-busca>
-        <x-slot name="rota">funcionarios.index</x-slot>
-        <x-slot name="tipo">Funcionário</x-slot>
+        <x-slot name="rota">Usuário.index</x-slot>
+        <x-slot name="tipo">Usuário</x-slot>
     </x-busca>
 
 

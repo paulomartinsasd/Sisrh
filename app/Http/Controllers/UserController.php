@@ -19,14 +19,15 @@ class UserController extends Controller
     public function index(Request $request)
     {
         /* Verifica se o usuário é admin através do GATE */
-        if(Gate::allows('type-user')){
+        if(Gate::allows('tipo-user')){
             $users = User::where('name', 'like','%'.$request->busca.'%')->orderBy('name', 'asc')->paginate(10);
+
+            $totalUsers = User::all()->count();
+
+            return view('users.index', compact('users', 'totalUsers'));
+        }else{
+            return back();
         }
-
-        $totalUsers = User::all()->count();
-
-        // Receber os dados do banco através
-        return view('users.index', compact('users', 'totalUsers'));
     }
 
     /**
@@ -34,7 +35,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        if(Gate::allows('tipo-user')){
+            return view('users.create');
+        }else{
+            return back();
+        }
     }
 
     /**
@@ -42,10 +47,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->all();
-        User::create($input);
+        if(Gate::allows('tipo-user')){
+            $input = $request->all();
+            User::create($input);
 
-        return redirect()->route('users.index')->with('sucesso','Usuário cadastrado com sucesso');
+            return redirect()->route('users.index')->with('sucesso','Usuário cadastrado com sucesso');
+        }else{
+            return back();
+        }
     }
 
     /**
@@ -67,7 +76,11 @@ class UserController extends Controller
             return back();
         }
 
-        return view('users.edit', compact('user'));
+        if(auth()->user()->id == $user['id'] || auth()->user()->type == 'admin') {
+            return view('users.edit', compact('user'));
+        } else {
+            return back();
+        }
     }
 
     /**
@@ -79,15 +92,24 @@ class UserController extends Controller
 
         $user = User::find($id);
 
+
         if($request->password){
             $input['password'] = bcrypt($input['password']);
         } else {
             $input['password'] = $user['password'];
         }
 
+
+
+        if($user->tipo == "admin"){
+            return redirect()->route('users.index')->with('sucesso','Usuário alterado com sucesso!');
+        } else{
+            return redirect()->route('users.edit', $user->id)->with('sucesso','Usuário alterado com sucesso!');
+        }
         $user->fill($input);
         $user->save();
-        return redirect()->route('users.index')->with('sucesso','Usuário alterado com sucesso!');
+
+
     }
 
     /**

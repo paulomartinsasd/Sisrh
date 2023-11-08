@@ -3,6 +3,9 @@
 @section('title', 'SisRH - Cadastro de Usuários')
 
 @section('content')
+    @if(Session::get('sucesso'))
+        <div class="alert alert-success text-center">{{ Session::get('sucesso') }}</div>
+    @endif
     <h1 class="fs-2 mb-3">Alterar Dados do Usuário</h1>
     <form class="row g-3" method="POST" action="{{ route('users.update', $user->id)}}" enctype="multipart/form-data">
         {{-- Criar hash de segurança para submissão do formulário --}}

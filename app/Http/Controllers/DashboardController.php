@@ -10,4 +10,14 @@ class DashboardController extends Controller
     public function __construct(){
         $this->middleware('auth');
     }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $request)
+    {
+        // Receber os dados do banco através
+        return view('dashboard.index');
+    }
+
 }

@@ -10,11 +10,13 @@
         <label for="password" class="form-label">Senha</label>
         <input type="password" class="form-control" id="password" name="password" @required(!isset($user->password))>
     </div>
-    <div class="col-md-4">
-        <label for="tipo" class="form-label">Tipo</label>
-        <select id="tipo" name="tipo" class="form-select" required>
-            <option value=""></option>>
-            <option value="admin" @if(isset($user->tipo)) @selected($user->tipo == "admin")@endif("")>Administrador</option>>
-            <option value="usuario" @if(isset($user->tipo)) @selected($user->tipo == "usuario")@endif("")>Usuário</option>>
-        </select>
-    </div>
+    @can('tipo-user')
+        <div class="col-md-4">
+            <label for="tipo" class="form-label">Tipo</label>
+            <select id="tipo" name="tipo" class="form-select" required>
+                <option value=""></option>>
+                <option value="admin" @if(isset($user->tipo)) @selected($user->tipo == "admin")@endif("")>Administrador</option>>
+                <option value="usuario" @if(isset($user->tipo)) @selected($user->tipo == "usuario")@endif("")>Usuário</option>>
+            </select>
+        </div>
+    @endcan
