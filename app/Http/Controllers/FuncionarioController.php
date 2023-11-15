@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Beneficio;
 use Illuminate\Http\Request;
 use App\Models\Departamento;
 use App\Models\Cargo;
@@ -38,7 +39,8 @@ class FuncionarioController extends Controller
         // Retorna o formulário de cadastro do funcionário
         $departamentos = Departamento::all()->sortBy('nome');
         $cargos = Cargo::all()->sortBy('descricao');
-        return view('funcionarios.create', compact('departamentos', 'cargos'));
+        $beneficios = Beneficio::all()->sortBy('descricao');
+        return view('funcionarios.create', compact('departamentos', 'cargos', 'beneficios'));
     }
 
     /**
