@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BeneficioController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\FuncionarioController;
@@ -58,3 +59,11 @@ Route::post('/users', [UserController::class, 'store'])->name('users.store');
 Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
 Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
 Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+
+/* Rotas de Users */
+Route::get('/beneficios', [BeneficioController::class, 'index'])->name('beneficios.index');
+Route::get('/beneficios/create', [BeneficioController::class, 'create'])->name('beneficios.create');
+Route::post('/beneficios', [BeneficioController::class, 'store'])->name('beneficios.store');
+Route::get('/beneficios/{id}/edit', [BeneficioController::class, 'edit'])->name('beneficios.edit');
+Route::put('/beneficios/{id}', [BeneficioController::class, 'update'])->name('beneficios.update');
+Route::delete('/beneficios/{id}', [BeneficioController::class, 'destroy'])->name('beneficios.destroy');

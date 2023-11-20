@@ -69,10 +69,12 @@
         <input type="file" class="form-control" id="foto" name="foto" >
     </div>
     <div class="col-md-4">
-        <label for="beneficios">Beneficios</label>
+        <label for="beneficios">Benefícios</label>
         <div>
             @foreach ($beneficios as $beneficio)
-                <input type="checkbox" name="beneficios[]" id="" value="{{ $beneficio->id }}"> {{  $beneficio->descricao }}<br/>
+                <input type="checkbox" value="{{ $beneficio->id }}" name="beneficios[]" @if (isset($funcionario->beneficios))
+                    @checked(in_array($beneficio->id, $beneficio_selecionados))
+                @endif> {{ $beneficio->descricao }}<br>
             @endforeach
         </div>
     </div>

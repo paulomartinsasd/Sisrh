@@ -33,7 +33,7 @@
         @endcan
 
         <li class="nav-item">
-            <a href="#" class="nav-link text-white btn btn-primary text-start">
+            <a href="{{ route('beneficios.index') }}" class="nav-link text-white btn btn-primary text-start">
                 <i class="bi bi-star mx-2 fs-5 align-middle"></i>Benefícios
             </a>
         </li>

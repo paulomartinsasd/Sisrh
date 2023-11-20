@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Beneficio;
 use Illuminate\Http\Request;
 
 class BeneficioController extends Controller
@@ -15,9 +16,14 @@ class BeneficioController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $beneficios = Beneficio::where('descricao','like','%'.$request->busca. '%')->orderBy('descricao', 'asc')->paginate(3);
+
+        $totalbeneficios = Beneficio::all()->count();
+
+        //Recebe os dados do banco
+        return view('beneficio.index', compact('beneficios', 'totalbeneficios'));
     }
 
     /**
@@ -25,7 +31,7 @@ class BeneficioController extends Controller
      */
     public function create()
     {
-        //
+        return view('beneficio.create');
     }
 
     /**
@@ -33,7 +39,12 @@ class BeneficioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->toArray();
+
+        // Insert de dados do usuário no banco
+        Beneficio::create($input);
+
+        return redirect()->route('beneficios.index')->with('sucesso','Beneficio cadastrado com sucesso');
     }
 
     /**
@@ -49,7 +60,12 @@ class BeneficioController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $beneficios = Beneficio::find($id);
+        if(!$beneficios){
+            return back();
+        }
+
+        return view('beneficio.edit', compact('beneficios'));
     }
 
     /**
@@ -57,7 +73,13 @@ class BeneficioController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $input = $request->toArray();
+
+        $beneficios = Beneficio::find($id);
+
+        $beneficios->fill($input);
+        $beneficios->save();
+        return redirect()->route('beneficios.index')->with('sucesso', 'Beneficio Alterado com Sucesso!');
     }
 
     /**

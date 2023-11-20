@@ -51,14 +51,20 @@ class FuncionarioController extends Controller
         $input = $request->toArray();
         //dd($input);
 
-        $input['user_id'] = 1;
+        //Armazena o id do usuário do sistema logado no cadastro do funcionário
+        $input['user_id'] = auth()->user()->id;
 
         if($request->hasFile('foto')){
             $input['foto'] = $this->uploadFoto($request->foto);
         }
 
-        // Insert de dados no Banco
-        Funcionario::create($input);
+         // Insert de dados do usuário no banco
+        $funcionario = Funcionario::create($input);
+
+        if($request->beneficios){
+            //Cadastro do funcionários com os benefícios
+            $funcionario->beneficios()->attach($request->beneficios);
+        }
 
         return redirect()->route('funcionarios.index')->with('sucesso', 'Funcionário Cadastrado com Sucesso!');
     }
@@ -99,8 +105,14 @@ class FuncionarioController extends Controller
 
         $departamentos = Departamento::all()->sortBy('nome');
         $cargos = Cargo::all()->sortBy('descricao');
+        $beneficios = Beneficio::all()->sortBy('descricao');
+        $beneficio_selecionados = [];
+        //Prepera array com os IDs dos benefícios do funcionário
+        foreach($funcionario->beneficios AS $beneficio){
+            $beneficio_selecionados[] = $beneficio->id;
+        }
 
-        return view('funcionarios.edit', compact('funcionario', 'departamentos', 'cargos'));
+        return view('funcionarios.edit', compact('funcionario','departamentos','cargos','beneficios', 'beneficio_selecionados'));
     }
 
     /**
@@ -115,6 +127,10 @@ class FuncionarioController extends Controller
         if($request->hasFile('foto')){
             Storage::delete('public/funcionarios/'.$funcionario['foto']);
             $input['foto'] = $this->uploadFoto($request->foto);
+        }
+
+        if($request->beneficios){
+            $funcionario->beneficios()->sync($input['beneficios']);
         }
 
         $funcionario->fill($input);
