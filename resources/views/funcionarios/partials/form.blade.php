@@ -2,7 +2,16 @@
         <label for="nome" class="form-label">Nome</label>
         <input type="text" class="form-control" id="nome" name="nome" value="{{ $funcionario->nome ?? "" }}" required>
     </div>
-    <div class="col-md-6">
+    @if (!@empty($funcionario->status))
+        <div class="col-md-3">
+            <label for="status" class="form-label">Status</label>
+            <select id="status" name="status" class="form-select" required>
+                <option value="on" @if(isset($funcionario->status)) @selected($funcionario->status == "on")@endif("")>Ativo</option>>
+                <option value="off" @if(isset($funcionario->status)) @selected($funcionario->status == "off")@endif("")>Desativado</option>>
+            </select>
+        </div>
+    @endif
+    <div class="col-md-3">
         <label for="data_nasc" class="form-label">Data de Nascimento</label>
         <input type="date" class="form-control" id="data_nasc" name="data_nasc" value="{{ $funcionario->data_nasc ?? "" }}" required>
     </div>

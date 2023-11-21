@@ -9,15 +9,22 @@
 
     <h1 class="fs-2 mb-3">Beneficios</h1>
 
-    @if(Session::get('sucesso'))
+    <p>Total de Beneficios: {{ $totalbeneficios }}</p>
+
+    @if (Session::get('erro'))
+        <div class="alert alert-danger text-center">{{ Session::get('erro') }}</div>
+    @endif
+
+    @if (Session::get('sucesso'))
         <div class="alert alert-success text-center">{{ Session::get('sucesso') }}</div>
     @endif
 
+
+
     <x-busca>
-        <x-slot name="rota">beneficios.index</x-slot>
+        <x-slot name="rota">{{ route('beneficios.index') }}</x-slot>
         <x-slot name="tipo">Beneficios</x-slot>
     </x-busca>
-
 
     <table class="table table-striped">
         <thead class="table-dark">
@@ -47,4 +54,10 @@
 
         </tbody>
     </table>
+    <style>
+        .pagination{
+            justify-content: right;
+        }
+    </style>
+    {{ $beneficios->links() }}
 @endsection

@@ -87,6 +87,19 @@ class BeneficioController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $beneficio = Beneficio::with('funcionarios')->find($id);
+
+        if ($beneficio) {
+            $funcionariosRelacionados = $beneficio->funcionarios;
+
+            if ($funcionariosRelacionados->isEmpty()) {
+                $beneficio->delete();
+                return redirect()->route('beneficios.index')->with('sucesso', 'Benefício excluído com sucesso.');
+            } else {
+                return redirect()->route('beneficios.index')->with('erro', 'Não é possível excluir o benefício, pois está vinculado a funcionários.');
+            }
+        }
+
+        return redirect()->route('beneficios.index')->with('erro', 'Benefício não encontrado.');
     }
 }

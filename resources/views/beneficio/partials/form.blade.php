@@ -7,7 +7,7 @@
     <div class="col-md-6">
         <label for="status" class="form-label">Status</label>
         <select id="status" name="status" class="form-select" required>
-            <option value=""></option>>
+            <option value=""></option>
             <option value="Ativo" @if(isset($beneficios->status)) @selected($beneficios->status == "on")@endif("")>Ativo</option>>
             <option value="Desativado" @if(isset($beneficios->status)) @selected($beneficios->status == "off")@endif("")>Desativado</option>>
         </select>
