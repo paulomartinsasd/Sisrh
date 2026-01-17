@@ -26,7 +26,7 @@
     </div>
     <div class="col-4">
         <label for="cpf" class="form-label">CPF</label>
-        <input type="text" class="form-control" id="cpf" name="cpf" minlength="11" value="{{ $funcionario->cpf ?? "" }}" maxlength="11" required>
+        <input type="text" class="form-control" id="cpf" name="cpf" value="{{ $funcionario->cpf ?? "" }}" required>
     </div>
     <div class="col-4">
         <label for="email" class="form-label">Email</label>

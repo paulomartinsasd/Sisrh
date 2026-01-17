@@ -49,14 +49,33 @@ class FuncionarioController extends Controller
     public function store(Request $request)
     {
         $input = $request->toArray();
-        //dd($input);
-
-        //Armazena o id do usuário do sistema logado no cadastro do funcionário
+        
+        
         $input['user_id'] = auth()->user()->id;
 
         if($request->hasFile('foto')){
             $input['foto'] = $this->uploadFoto($request->foto);
         }
+
+        if(isset($input['cpf'])) {
+            $cpfLimpo = str_replace(['.','-'], '', $input['cpf']);
+            
+            $input['cpf'] = $cpfLimpo;
+        }
+
+        if(isset($input['telefone'])) {
+            $telefoneLimpo = str_replace(['(',')', '-'], '', $input['telefone']);
+            
+            $input['telefone'] = $telefoneLimpo;
+        }
+
+        if(isset($input['salario'])) {
+            $salarioLimpo = str_replace('.', '', $input['salario']);
+            $salarioLimpo = str_replace(',', '.', $salarioLimpo);
+            
+            $input['salario'] = $salarioLimpo;
+        }
+        
 
          // Insert de dados do usuário no banco
         $funcionario = Funcionario::create($input);
@@ -127,6 +146,25 @@ class FuncionarioController extends Controller
         if($request->hasFile('foto')){
             Storage::delete('public/funcionarios/'.$funcionario['foto']);
             $input['foto'] = $this->uploadFoto($request->foto);
+        }
+
+        if(isset($input['cpf'])) {
+            $cpfLimpo = str_replace(['.','-'], '', $input['cpf']);
+            
+            $input['cpf'] = $cpfLimpo; // Devolve o valor limpo para o array
+        }
+
+        if(isset($input['telefone'])) {
+            $telefoneLimpo = str_replace(['(',')', '-'], '', $input['telefone']);
+            
+            $input['telefone'] = $telefoneLimpo; // Devolve o valor limpo para o array
+        }
+
+        if(isset($input['salario'])) {
+            $salarioLimpo = str_replace('.', '', $input['salario']); // Remove ponto de milhar
+            $salarioLimpo = str_replace(',', '.', $salarioLimpo);      // Troca vírgula por ponto
+            
+            $input['salario'] = $salarioLimpo; // Devolve o valor limpo para o array
         }
 
         if($request->beneficios){
